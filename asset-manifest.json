@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/airbnb-frontend-test/static/css/main.a3844daf.css",
+    "main.js": "/airbnb-frontend-test/static/js/main.d08a9b88.js",
+    "static/js/787.e8223466.chunk.js": "/airbnb-frontend-test/static/js/787.e8223466.chunk.js",
+    "static/media/cool-background-grey.png": "/airbnb-frontend-test/static/media/cool-background-grey.8f75b113febb772f8a96.png",
+    "static/media/bootstrap-icons.woff?": "/airbnb-frontend-test/static/media/bootstrap-icons.e559bf06bc84fd9525e6.woff",
+    "static/media/bootstrap-icons.woff2?": "/airbnb-frontend-test/static/media/bootstrap-icons.ea98e12d2d58747f9fc5.woff2",
+    "static/media/user-profile.jpg": "/airbnb-frontend-test/static/media/user-profile.9aa809c2866b44dcb9b5.jpg",
+    "static/media/logo3.svg": "/airbnb-frontend-test/static/media/logo3.c943fc15d63267b49a9dff1cce67045b.svg",
+    "index.html": "/airbnb-frontend-test/index.html",
+    "main.a3844daf.css.map": "/airbnb-frontend-test/static/css/main.a3844daf.css.map",
+    "main.d08a9b88.js.map": "/airbnb-frontend-test/static/js/main.d08a9b88.js.map",
+    "787.e8223466.chunk.js.map": "/airbnb-frontend-test/static/js/787.e8223466.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a3844daf.css",
+    "static/js/main.d08a9b88.js"
+  ]
+}
