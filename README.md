@@ -2,6 +2,24 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Running in mock mode
+
+The app normally calls a separate backend at [http://localhost:3000](http://localhost:3000)
+(see `src/services/ApiService.js`). To run the frontend **without** that backend, start it in
+mock mode:
+
+```bash
+REACT_APP_USE_MOCK=true npm start
+```
+
+When `REACT_APP_USE_MOCK=true` is set, the services in `src/services/` return data from
+`sample-properties/` instead of calling the API. In mock mode:
+
+- the property list, property search, and the property details page all work from the sample data
+- the login page accepts any email/password and returns a fake user
+
+When the variable is not set, behaviour is unchanged and the app calls the real backend as before.
+
 ## Available Scripts
 
 In the project directory, you can run:
