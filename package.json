@@ -2,6 +2,7 @@
   "name": "airbnb",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dimamghanem-1.github.io/airbnb-frontend-test",
   "dependencies": {
     "@react-google-maps/api": "^2.13.1",
     "@testing-library/jest-dom": "^5.16.5",
