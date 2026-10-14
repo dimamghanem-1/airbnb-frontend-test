@@ -29,7 +29,7 @@ export async function deleteProperty(property_id) {
 }
 export async function getPropertyImages(property_id) {
     var response = await getAPICall('/properties/' + property_id + '/images');
-    sleep(3000)
+    await sleep(3000)
     console.log(response.message.images);
     return response.message;
 }

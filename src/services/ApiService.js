@@ -1,5 +1,6 @@
 import Toast from '../components/toast/Toast';
 import { deleteToken, getToken } from '../components/common/CommonUtils';
+import { getMockResponse, useMock } from './mock/MockService';
 
 const baseUrl = 'http://localhost:3000'
 var Headers = { 'Content-Type': 'application/json' }
@@ -9,6 +10,9 @@ const unauthorized = 401;
 
 
 export async function getAPICall(uri) {
+
+    // Mock mode: return sample data instead of calling the backend.
+    if (useMock) return getMockResponse(uri, 'GET');
 
     try {
 
@@ -44,6 +48,9 @@ export async function getAPICall(uri) {
 }
 
 export async function postAPICall(uri, body) {
+
+    // Mock mode: return sample data instead of calling the backend.
+    if (useMock) return getMockResponse(uri, 'POST', body);
 
     try {
         let finalURL = baseUrl + uri;
