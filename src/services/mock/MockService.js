@@ -42,8 +42,10 @@ const handleGet = (uri, params) => {
 
     const imagesMatch = uri.match(/^\/properties\/([^/]+)\/images$/);
     if (imagesMatch) {
+        // The real API returns the image list directly in `message`;
+        // PropertyDetails passes it to a component that maps over it.
         const property = findProperty(imagesMatch[1]);
-        return ok({ property_id: imagesMatch[1], images: property ? property.images : [] });
+        return ok(property ? property.images : []);
     }
 
     const userMatch = uri.match(/^\/users\/([^/]+)$/);

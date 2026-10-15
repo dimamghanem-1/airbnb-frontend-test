@@ -46,15 +46,18 @@ describe('mock mode', () => {
         });
     });
 
-    test('GET property images returns sample images', () => {
+    test('GET property images returns the sample images array', () => {
+        // The real API returns the image list directly in `message` (an
+        // array), because PropertyDetails hands it to a component that maps
+        // over it. Returning anything else crashes the details page.
         const all = getMockResponse('/properties', 'GET').message;
         const id = all[0]._id;
         const response = getMockResponse('/properties/' + id + '/images', 'GET');
         expect(response.status).toBe(200);
-        expect(response.message.property_id).toBe(id);
-        expect(Array.isArray(response.message.images)).toBe(true);
-        expect(response.message.images.length).toBeGreaterThan(0);
-        expect(response.message.images[0]).toHaveProperty('image');
+        expect(Array.isArray(response.message)).toBe(true);
+        expect(response.message.length).toBeGreaterThan(0);
+        expect(response.message[0]).toHaveProperty('image');
+        expect(response.message[0]).toHaveProperty('title');
     });
 
     test('POST /login accepts any credentials and returns a fake token', () => {
