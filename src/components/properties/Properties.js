@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom';
 import Sidebar from '../sidebar/Sidebar'
 import BookmarksCard from './BookmarksCard';
 import Footer from '../footer/Footer';
 import { renderSpinner } from '../common/CommonElements';
 import { searchProperty } from '../../services/SearchService';
 import { getAllProperties } from '../../services/PropertiesService';
+import { filterPropertiesByPrice, isValidPriceRange } from '../../services/priceFilter';
 
 import './Search.css';
 import './Properties.css';
@@ -16,31 +18,46 @@ const Properties = () => {
 
     const [search, setSearch] = useState({ house_type: "", location: "" });
 
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [price, setPrice] = useState({
+        minPrice: searchParams.get('minPrice') || "",
+        maxPrice: searchParams.get('maxPrice') || ""
+    });
+
+    const [priceError, setPriceError] = useState("");
+
     const [searchList, setSearchList] = useState([]);
 
     const [dataReady, setDataReady] = useState(false);
 
+    const priceFilterActive = price.minPrice !== "" || price.maxPrice !== "";
+
     const onSearchSubmit = () => {
-        console.log("Search for : ", search);
-        /* if (search === "" || search === null)
-            setSearchList(propertiesList);
-        else {
-            async function getData() {
-                await searchProperty(search)
-                    .then(res => {
-                        setSearchList(res);
-                    })
-            }
-            getData();
-        } */
+        console.log("Search for : ", search, " price: ", price);
+
+        if (!isValidPriceRange(price.minPrice, price.maxPrice)) {
+            setPriceError("Min price cannot be greater than max price");
+            return;
+        }
+        setPriceError("");
+
+        // Keep the price filter shareable by reflecting it in the URL.
+        const params = {};
+        if (price.minPrice !== "") params.minPrice = price.minPrice;
+        if (price.maxPrice !== "") params.maxPrice = price.maxPrice;
+        setSearchParams(params);
+
+        const applyPriceFilter = (list) =>
+            setSearchList(filterPropertiesByPrice(list, price.minPrice, price.maxPrice));
 
         if (search.house_type === "" && search.location === "") {
-            setSearchList(propertiesList);
+            applyPriceFilter(propertiesList);
         } else {
             async function getData() {
                 await searchProperty(search)
                     .then(res => {
-                        setSearchList(res);
+                        applyPriceFilter(res);
                     })
             }
             getData();
@@ -56,18 +73,27 @@ const Properties = () => {
         });
     }
 
+    const handlePriceInputChange = (e) => {
+        setPrice({
+            ...price,
+            [e.target.name]: e.target.value
+        });
+    }
+
     useEffect(() => {
 
         async function getData() {
             await getAllProperties()
                 .then(res => {
                     setAllPropertiesList(res);
-                    setSearchList(res);
+                    // Honour a price filter shared through the URL on load.
+                    setSearchList(filterPropertiesByPrice(res, price.minPrice, price.maxPrice));
                     setDataReady(true);
                 });
         }
 
         getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /* const imageWidth = '250px';
@@ -87,7 +113,7 @@ const Properties = () => {
 
                             <div className='input-group row' style={{ width: '70%' }}>
                                 {/* <div className='row'> */}
-                                <div className='col col-md-4'>
+                                <div className='col'>
                                     <input type="search"
                                         id="search-bar"
                                         className="form-control mr-sm-2"
@@ -96,7 +122,7 @@ const Properties = () => {
                                         onChange={handleSearchInputChange}
                                     ></input>
                                 </div>
-                                <div className='col col-md-4'>
+                                <div className='col'>
                                     <input type="search"
                                         id="search-bar"
                                         className="form-control mr-sm-2"
@@ -105,7 +131,29 @@ const Properties = () => {
                                         onChange={handleSearchInputChange}
                                     ></input>
                                 </div>
-                                <div className='col col-md-4'>
+                                <div className='col'>
+                                    <input type="number"
+                                        id="min-price"
+                                        className="form-control mr-sm-2"
+                                        placeholder='Min price'
+                                        name="minPrice"
+                                        min="0"
+                                        value={price.minPrice}
+                                        onChange={handlePriceInputChange}
+                                    ></input>
+                                </div>
+                                <div className='col'>
+                                    <input type="number"
+                                        id="max-price"
+                                        className="form-control mr-sm-2"
+                                        placeholder='Max price'
+                                        name="maxPrice"
+                                        min="0"
+                                        value={price.maxPrice}
+                                        onChange={handlePriceInputChange}
+                                    ></input>
+                                </div>
+                                <div className='col'>
                                     <button className="btn btn-secondary"
                                         id='search-button'
                                         onClick={onSearchSubmit}>
@@ -115,7 +163,11 @@ const Properties = () => {
                                 </div>
                                 {/* </div> */}
 
-
+                                {priceError !== "" &&
+                                    <div id='price-range-error' style={{ color: 'red', width: '100%', paddingTop: '1%' }}>
+                                        {priceError}
+                                    </div>
+                                }
 
                             </div>
 
@@ -142,7 +194,9 @@ const Properties = () => {
                                             )
                                         })}
                                     </div>
-                                    : <h4 style={{ textAlign: 'center', paddingTop: '5%' }}>No Properties found...</h4>
+                                    : <h4 style={{ textAlign: 'center', paddingTop: '5%' }}>
+                                        {priceFilterActive ? "No properties in this price range" : "No Properties found..."}
+                                    </h4>
                                 }
 
                             </div>}

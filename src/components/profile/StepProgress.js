@@ -47,7 +47,7 @@ const StepProgress = ({ formData, setFormData, propertyImages, setPropertyImages
                     <h5>{formTitle[page]}</h5>
                 </div>
                 <div className='progressbar'>
-                    <div style={{ width: `${widthStyle()}`, backgroundColor: '#4181ff', height: '7px' }}></div>
+                    <div style={{ width: `${widthStyle()}`, backgroundColor: 'var(--brand-primary)', height: '7px' }}></div>
                 </div>
                 <div className='progress-body'>
                     {displayForm()}

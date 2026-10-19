@@ -56,7 +56,7 @@ div.input-group {
 .search .search-input {
     padding: 0 10px;
     width: 100%;
-    caret-color: #536bf6;
+    caret-color: var(--brand-primary);
     font-size: 19px;
     font-weight: 300;
     color: black;
@@ -72,7 +72,7 @@ div.input-group {
     justify-content: center;
     align-items: center;
     color: white;
-    background-color: #536bf6;
+    background-color: var(--brand-primary);
     font-size: 10px;
     bottom: 30px;
     position: relative;
@@ -82,6 +82,7 @@ div.input-group {
 .search-icon:hover {
 
     color: #fff !important;
+    background-color: var(--brand-primary-hover);
 }
 
 a:link {

@@ -1,6 +1,7 @@
 import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './theme.css';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
 import { ToastContainer } from 'react-toastify';

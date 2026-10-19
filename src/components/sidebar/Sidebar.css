@@ -6,6 +6,33 @@ div.ProSidebar {
     height: 100%;
 }
 
+/* Brand the navigation bar. These rules load after react-pro-sidebar's
+   default styles.css (dark #1d1d1d background, #adadad links), so they
+   win the cascade. White text on the brand red is ~5.6:1 (WCAG AA). */
+#sidebar-container .pro-sidebar,
+#sidebar-container .pro-sidebar a,
+#sidebar-container .pro-sidebar a:hover {
+    color: #fff;
+}
+
+#sidebar-container .pro-sidebar > .pro-sidebar-inner {
+    background: var(--brand-primary);
+}
+
+#sidebar-container .pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:hover {
+    background-color: var(--brand-primary-hover);
+    color: #fff;
+}
+
+#sidebar-container .pro-sidebar .pro-menu .pro-menu-item.active > .pro-inner-item {
+    background-color: var(--brand-primary-active);
+    color: #fff;
+}
+
+#sidebar-container .pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:focus {
+    color: #fff;
+}
+
 #sidebar-container .closemenu {
     /* color: rgb(161, 161, 161);
     position: absolute;
@@ -17,7 +44,7 @@ div.ProSidebar {
     font-size: 22px;
     top: 55px;
     cursor: pointer; */
-    color: rgb(161, 161, 161);
+    color: #fff;
     position: absolute;
     right: 0;
     /* z-index: 9999; */

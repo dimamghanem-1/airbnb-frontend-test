@@ -1,0 +1,32 @@
+/* Brand colours for the app. Change them here; components reference the
+   variables instead of hard-coding shades.
+   White text on the primary red has a contrast ratio of ~5.6:1, which
+   meets WCAG AA (>= 4.5:1) for normal text. */
+:root {
+  --brand-primary: #C62828;
+  --brand-primary-hover: #B71C1C;
+  --brand-primary-active: #9A1818;
+  --brand-primary-rgb: 198, 40, 40;
+
+  /* Point Bootstrap's primary variant at the brand colour. */
+  --bs-primary: var(--brand-primary);
+  --bs-primary-rgb: var(--brand-primary-rgb);
+}
+
+/* Bootstrap 5.2 resolves .btn-primary through these custom properties, so
+   redeclaring them once re-skins every primary button in the app. */
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--brand-primary);
+  --bs-btn-border-color: var(--brand-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--brand-primary-hover);
+  --bs-btn-hover-border-color: var(--brand-primary-hover);
+  --bs-btn-focus-shadow-rgb: var(--brand-primary-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--brand-primary-active);
+  --bs-btn-active-border-color: var(--brand-primary-active);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--brand-primary);
+  --bs-btn-disabled-border-color: var(--brand-primary);
+}
