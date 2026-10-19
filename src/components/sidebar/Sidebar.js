@@ -55,7 +55,7 @@ const Sidebar = () => {
                     <div className="logotext">
                         {/* Icon change using menucollapse state */}
                         {/* <p style={{ fontSize: "30px" }}>{menuCollapse ? <GiHamburgerMenu /> : <SiApacheairflow />} Airbnb </p> */}
-                        <Link to='/home' style={{ color: '#ADADAD', textDecoration: 'none' }}>
+                        <Link to='/home' style={{ textDecoration: 'none' }}>
 
                             <p style={{ fontSize: "30px", paddingTop: '3%', paddingLeft: '20%', font: 'sans-serif' }}>
 
@@ -79,7 +79,7 @@ const Sidebar = () => {
                     {
                         SidebarData.map(sidebarItem => {
                             return (
-                                <Link to={sidebarItem.link} style={{ color: '#ADADAD' }} key={sidebarItem.id}>
+                                <Link to={sidebarItem.link} key={sidebarItem.id}>
                                     <Menu iconShape={iconShape} /* key={sidebarItem.id} */>
                                         <MenuItem icon={sidebarItem.icon}>{sidebarItem.name}</MenuItem>
                                     </Menu>
@@ -91,7 +91,7 @@ const Sidebar = () => {
                 </SidebarContent>
 
                 <SidebarFooter style={{ paddingBottom: "0%" }}>
-                    <Menu iconShape={iconShape} style={{ color: '#e13131' }}>
+                    <Menu iconShape={iconShape}>
                         <MenuItem icon={<FiLogOut />} onClick={setModalIsOpenToTrue}>Logout</MenuItem>
                     </Menu>
                 </SidebarFooter>
